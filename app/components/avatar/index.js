@@ -27,7 +27,7 @@ export class Avatar extends RkComponent {
     let {image, badge, badgeText} = styles;
     return (
       <View>
-        <Image style={image} source={this.props.img}/>
+        <Image style={image} source={{ uri: this.props.img }}/>
         { this.props.badge && this.renderBadge(badge, badgeText)}
       </View>
     )

@@ -2,7 +2,8 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Dimensions
+  Dimensions,
+  Text
 } from 'react-native';
 import _ from 'lodash';
 import {RkText, RkButton, RkStyleSheet} from 'react-native-ui-kitten';
@@ -49,7 +50,7 @@ export class NavBar extends React.Component {
           onPress={() => {
             this.props.navigation.goBack()
           }}>
-          <RkText rkType='awesome hero'>{FontAwesome.chevronLeft}</RkText>
+          <RkText rkType='awesome hero' style={{color: 'white'}}>{FontAwesome.chevronLeft}</RkText>
         </RkButton>
       }
       else {
@@ -59,7 +60,7 @@ export class NavBar extends React.Component {
           onPress={() => {
             this.props.navigation.navigate('DrawerOpen')
           }}>
-          <RkText rkType='awesome'>{FontAwesome.bars}</RkText>
+          <RkText rkType='awesome' style={{color: 'white'}}>{FontAwesome.bars}</RkText>
         </RkButton>
       }
     };
@@ -85,7 +86,7 @@ export class NavBar extends React.Component {
 
     return (
       <View style={styles.title} onLayout={onLayout}>
-        <RkText>{title}</RkText>
+        <RkText rkType="titleNavBar">{title}</RkText>
       </View>
     )
   }
@@ -106,15 +107,14 @@ export class NavBar extends React.Component {
 
 let styles = RkStyleSheet.create(theme => ({
   layout: {
-    backgroundColor: theme.colors.screen.base,
+    backgroundColor: '#EE7621',
     paddingTop: UIConstants.StatusbarHeight,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.border.base
+    borderBottomColor: theme.colors.border.base,
   },
   container: {
     flexDirection: 'row',
     height: UIConstants.AppbarHeight,
-
   },
   left: {
     position: 'absolute',
@@ -132,7 +132,7 @@ let styles = RkStyleSheet.create(theme => ({
   title: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   menu: {
     width: 40

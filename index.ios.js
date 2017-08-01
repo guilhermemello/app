@@ -4,4 +4,4 @@ import {
 
 import App from './app/app';
 
-AppRegistry.registerComponent('redacaoPerfeita', () => App);
+AppRegistry.registerComponent('RedacaoPerfeita', () => App);

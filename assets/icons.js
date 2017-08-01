@@ -27,5 +27,6 @@ export const FontAwesome = {
   slashEye: String.fromCharCode(61552),
   github: String.fromCharCode(61595),
   eye: String.fromCharCode(0xf06e),
-  share: String.fromCharCode(0xf079)
+  share: String.fromCharCode(0xf079),
+  icone: String.fromCharCode(0xf06e)
 };

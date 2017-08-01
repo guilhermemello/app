@@ -4,9 +4,9 @@ import {
   StackNavigator
 } from 'react-navigation';
 import {withRkTheme} from 'react-native-ui-kitten';
-import {AppRoutes} from '../config/navigation/routesBuilder';
+import {AppRoutes} from './config/navigation/routesBuilder';
 import * as Screens from './screens';
-import {bootstrap} from '../config/bootstrap';
+import {bootstrap} from './config/bootstrap';
 // import track from './config/analytics';
 // import {data} from './data'
 
@@ -27,6 +27,7 @@ let SideMenu = withRkTheme(Screens.SideMenu);
 const RedacaoPerfeita = StackNavigator({
   First: {
     screen: Screens.SplashScreen
+    // screen: Screens.Modulos
   },
   Home: {
     screen: DrawerNavigator({
@@ -37,19 +38,14 @@ const RedacaoPerfeita = StackNavigator({
       })
   }
 }, {
-  headerMode: 'none',
+  headerMode: 'none'
 });
-
 
 export default () => (
   <RedacaoPerfeita
     onNavigationStateChange={(prevState, currentState) => {
       const currentScreen = getCurrentRouteName(currentState);
       const prevScreen = getCurrentRouteName(prevState);
-
-      if (prevScreen !== currentScreen) {
-        track(currentScreen);
-      }
     }}
   />
 );

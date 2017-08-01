@@ -13,7 +13,7 @@ import {
   RkText,
   RkTheme
 } from 'react-native-ui-kitten';
-import {MainRoutes} from '../../config/navigation/routes';
+import {OtherRoutes} from '../../config/navigation/routes';
 import {FontAwesome} from '../../assets/icons';
 
 export class SideMenu extends React.Component {
@@ -33,15 +33,12 @@ export class SideMenu extends React.Component {
     this.props.navigation.dispatch(resetAction)
   }
 
-  _renderIcon() {
-    if (RkTheme.current.name === 'light')
-      return <Image style={styles.icon} source={require('../../assets/images/smallLogo.png')}/>;
-    return <Image style={styles.icon} source={require('../../assets/images/smallLogoDark.png')}/>
-
+  renderIcon() {
+    return <Image style={styles.icon} source={require('../../assets/images/logo-mobile.png')}/>;
   }
 
   render() {
-    let menu = MainRoutes.map((route, index) => {
+    let menu = OtherRoutes.map((route, index) => {
       return (
         <TouchableHighlight
           style={styles.container}
@@ -51,8 +48,7 @@ export class SideMenu extends React.Component {
           onPress={() => this._navigateAction(route)}>
           <View style={styles.content}>
             <View style={styles.content}>
-              <RkText style={styles.icon}
-                      rkType='moon primary xlarge'>{route.icon}</RkText>
+              <RkText style={styles.icon} rkType='awesome primary large'>{route.icon}</RkText>
               <RkText>{route.title}</RkText>
             </View>
             <RkText rkType='awesome secondaryColor small'>{FontAwesome.chevronRight}</RkText>
@@ -66,8 +62,8 @@ export class SideMenu extends React.Component {
         <ScrollView
           showsVerticalScrollIndicator={false}>
           <View style={[styles.container, styles.content]}>
-            {this._renderIcon()}
-            <RkText rkType='logo'>UI Kitten</RkText>
+            {this.renderIcon()}
+            <RkText rkType='logo'>Redação Perfeita</RkText>
           </View>
           {menu}
         </ScrollView>

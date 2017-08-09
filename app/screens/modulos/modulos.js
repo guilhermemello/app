@@ -4,6 +4,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 import {
@@ -17,6 +18,7 @@ import {FontAwesome} from '../../assets/icons';
 import {API_MODULOS} from '../../data/modulos';
 
 import Spinner from 'react-native-loading-spinner-overlay';
+import _ from 'lodash';
 
 export class Modulos extends React.Component {
   static navigationOptions = {
@@ -30,6 +32,14 @@ export class Modulos extends React.Component {
       modulos: [],
       isLoading: true
     }
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('access_token').then(token => {
+      if (_.isNil(token)) {
+        this.props.navigation.navigate('Login');
+      }
+    });
   }
 
   componentDidMount() {

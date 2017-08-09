@@ -5,7 +5,7 @@ import {
 
 export class Browser extends React.Component {
   static navigationOptions = {
-    title: 'Redação'
+    title: 'REDAÇÃO'
   };
 
   render() {

@@ -5,7 +5,6 @@ export * from './redacoes';
 export * from './tema';
 export * from './aulas';
 export * from './login';
-export * from './theme';
 export * from './splash';
 export * from './browser';
 export * from './player';

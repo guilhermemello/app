@@ -17,7 +17,6 @@ import {
 } from '../../components';
 
 import {FontAwesome} from '../../assets/icons';
-import {API} from '../../data/api';
 
 import HTMLView from 'react-native-htmlview';
 

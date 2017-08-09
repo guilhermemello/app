@@ -303,7 +303,8 @@ export let bootstrap = () => {
 
   RkTheme.setType('RkTextInput', 'basic', {
     input: {
-      fontFamily: theme => theme.fonts.family.bold
+      fontFamily: theme => theme.fonts.family.bold,
+      fontSize: 15
     },
     color: theme => theme.colors.text.base,
     backgroundColor: theme => theme.colors.control.background,

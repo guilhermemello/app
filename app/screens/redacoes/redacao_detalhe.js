@@ -39,7 +39,6 @@ export class RedacaoDetalhe extends React.Component {
     let {params} = this.props.navigation.state;
 
     API_REDACAO.getRedacao(params.redacaoId).then(redacao => {
-      console.log(JSON.stringify(redacao));
       this.setState({ isLoading: false, redacao: redacao })
     });
   }

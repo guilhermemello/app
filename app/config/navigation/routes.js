@@ -78,13 +78,11 @@ export const MainRoutes = [
   }
 ];
 
-// let menuRoutes = _.cloneDeep(MainRoutes);
-
 export const OtherRoutes = [
   {
     id: 'Modulo',
     title: 'Módulos',
-    icon: FontAwesome.video,
+    icon: FontAwesome.folder,
     screen: Screens.Modulos,
     children: [
       {
@@ -95,7 +93,7 @@ export const OtherRoutes = [
         children: []
       }
     ]
-  },
+  }
 ]
 
 export const MenuRoutes = MainRoutes;

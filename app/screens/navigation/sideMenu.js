@@ -13,11 +13,12 @@ import {
   RkText,
   RkTheme
 } from 'react-native-ui-kitten';
+
 import {OtherRoutes} from '../../config/navigation/routes';
 import {FontAwesome} from '../../assets/icons';
+import {AUTHENTICATION} from '../../data/authentication';
 
 export class SideMenu extends React.Component {
-
   constructor(props) {
     super(props);
     this._navigateAction = this._navigate.bind(this);
@@ -48,7 +49,7 @@ export class SideMenu extends React.Component {
           onPress={() => this._navigateAction(route)}>
           <View style={styles.content}>
             <View style={styles.content}>
-              <RkText style={styles.icon} rkType='awesome primary large'>{route.icon}</RkText>
+              <RkText style={styles.icon} rkType='awesome large'>{route.icon}</RkText>
               <RkText>{route.title}</RkText>
             </View>
             <RkText rkType='awesome secondaryColor small'>{FontAwesome.chevronRight}</RkText>
@@ -56,6 +57,20 @@ export class SideMenu extends React.Component {
         </TouchableHighlight>
       )
     });
+
+    menu.push(<TouchableHighlight
+      style={styles.container}
+      key='Sair'
+      underlayColor={RkTheme.current.colors.button.underlay}
+      activeOpacity={1}
+      onPress={() => this.logout()}>
+      <View style={styles.content}>
+        <View style={styles.content}>
+          <RkText style={styles.icon} rkType='awesome large'>{FontAwesome.signOut}</RkText>
+          <RkText>Sair</RkText>
+        </View>
+      </View>
+    </TouchableHighlight>)
 
     return (
       <View style={styles.root}>
@@ -69,6 +84,11 @@ export class SideMenu extends React.Component {
         </ScrollView>
       </View>
     )
+  }
+
+  logout() {
+    AUTHENTICATION.logout();
+    this.props.navigation.navigate('Login');
   }
 }
 

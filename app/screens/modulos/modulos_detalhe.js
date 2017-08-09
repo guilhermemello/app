@@ -23,6 +23,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import ActionButton from 'react-native-action-button';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import {FontAwesome} from '../../assets/icons';
 import {API_MODULOS} from '../../data/modulos';
@@ -38,7 +39,8 @@ export class ModulosDetalhe extends React.Component {
 
     this.state = {
       modulo: {},
-      isLoading: true
+      isLoading: true,
+      enviandoRedacao: false
     }
   }
 
@@ -53,14 +55,13 @@ export class ModulosDetalhe extends React.Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <ActivityIndicator
-        style={[styles.centering, {height: 80}]}
-        size="large"
-      />
+        <Spinner visible={this.state.isLoading} />
       )
     } else {
       return (
         <ScrollView style={styles.container}>
+          <Spinner visible={this.state.enviandoRedacao} />
+
           <View style={styles.header}>
             <View style={styles.hint}>
             <RkText rkType='h5 bold'>Módulo com 4 redações</RkText>
@@ -136,18 +137,20 @@ export class ModulosDetalhe extends React.Component {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
+      if (!response.didCancel && !response.error) {
+        this.setState({ enviandoRedacao: true });
 
-      if (!response.didCancel && response.error) {
         CAMERA.upload(response.uri, this.state.modulo.id).then(response => {
-          console.log(response);
+          API_MODULOS.getModulo(this.state.modulo.id).then(modulo => {
+            // Alert.alert(
+            //   'Atenção',
+            //   'Redação enviada com sucesso.',
+            //   [{ text: 'OK', onPress: () => this.props.navigation.navigate('RedacaoDetalhe', { redacaoId: response.trabalho.id }) }],
+            //   { cancelable: false }
+            // );
 
-          Alert.alert(
-            'Atenção',
-            'Redação enviada com sucesso.',
-            [{ text: 'OK', onPress: () => this.props.navigation.navigate('RedacaoDetalhe', { redacaoId: response.trabalho.id }) }],
-            { cancelable: false }
-          )
+            this.setState({ enviandoRedacao: false, modulo: modulo })
+          });
         });
       }
     });
@@ -159,9 +162,7 @@ let styles = RkStyleSheet.create(theme => ({
     backgroundColor: theme.colors.screen.scroll
   },
 
-  /* CARD */
   card: {
-    // flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-end',
     paddingVertical: 20,
@@ -243,11 +244,9 @@ let styles = RkStyleSheet.create(theme => ({
   },
   row: {
     flexDirection: 'column',
-    // justifyContent: 'space-between',
     paddingHorizontal: 17.5,
     borderBottomWidth: 1,
     borderColor: theme.colors.border.base,
-    // alignItems: 'center'
   },
   rowButton: {
     flex: 1,

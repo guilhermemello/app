@@ -3,6 +3,7 @@ import {
   DrawerNavigator,
   StackNavigator
 } from 'react-navigation';
+
 import {withRkTheme} from 'react-native-ui-kitten';
 import {AppRoutes} from './config/navigation/routesBuilder';
 import * as Screens from './screens';
@@ -10,7 +11,14 @@ import {bootstrap} from './config/bootstrap';
 // import track from './config/analytics';
 // import {data} from './data'
 
+import Reactotron from 'reactotron-react-native'
+
 bootstrap();
+
+Reactotron
+  .configure() // controls connection & communication settings
+  .useReactNative() // add all built-in react native plugins
+  .connect() // let's connect!
 
 function getCurrentRouteName(navigationState) {
   if (!navigationState) {
@@ -24,10 +32,13 @@ function getCurrentRouteName(navigationState) {
 }
 
 let SideMenu = withRkTheme(Screens.SideMenu);
+
 const RedacaoPerfeita = StackNavigator({
-  First: {
-    screen: Screens.SplashScreen
-    // screen: Screens.Modulos
+  // First: {
+  //   screen: Screens.SplashScreen
+  // },
+  Login: {
+    screen: Screens.Login
   },
   Home: {
     screen: DrawerNavigator({

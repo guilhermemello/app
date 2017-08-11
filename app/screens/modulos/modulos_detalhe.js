@@ -64,7 +64,7 @@ export class ModulosDetalhe extends React.Component {
 
           <View style={styles.header}>
             <View style={styles.hint}>
-            <RkText rkType='h5 bold'>Módulo com 4 redações</RkText>
+            <RkText rkType='h5 bold'>{this.renderTitle(this.state.modulo.tipo_plano)}</RkText>
             </View>
 
             <View style={styles.subHeader}>
@@ -111,6 +111,17 @@ export class ModulosDetalhe extends React.Component {
           {this.renderActionButton()}
         </ScrollView>
       )
+    }
+  }
+
+  renderTitle(tipo) {
+    switch (tipo) {
+      case 4:
+        return "Módulo com 4 redações"
+      case 8:
+        return "Módulo com 8 redações"
+      case 12:
+        return "Módulo com 12 redações"
     }
   }
 

@@ -78,7 +78,7 @@ export class SideMenu extends React.Component {
           showsVerticalScrollIndicator={false}>
           <View style={[styles.container, styles.content]}>
             {this.renderIcon()}
-            <RkText rkType='logo'>Redação Perfeita</RkText>
+            <RkText>Redação Perfeita</RkText>
           </View>
           {menu}
         </ScrollView>

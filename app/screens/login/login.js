@@ -16,8 +16,9 @@ import {
 
 import {FontAwesome} from '../../assets/icons';
 import {RkTheme} from 'react-native-ui-kitten';
-import {scale, scaleModerate, scaleVertical} from '../../utils/scale';
+import Spinner from 'react-native-loading-spinner-overlay';
 
+import {scale, scaleModerate, scaleVertical} from '../../utils/scale';
 import {AUTHENTICATION} from '../../data/authentication';
 
 import _ from 'lodash';
@@ -40,7 +41,8 @@ export class Login extends React.Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      isLoading: false
     }
   }
 
@@ -54,6 +56,7 @@ export class Login extends React.Component {
         style={styles.screen}
         onStartShouldSetResponder={ (e) => true}
         onResponderRelease={ (e) => Keyboard.dismiss()}>
+        <Spinner visible={this.state.isLoading} />
         <View style={styles.header}>
           {renderIcon()}
         </View>
@@ -73,6 +76,8 @@ export class Login extends React.Component {
   }
 
   authenticate() {
+    this.setState({ isLoading: true });
+
     AUTHENTICATION.login(this.state.username, this.state.password).then(response => {
       if (response.status == 401) {
         Alert.alert(
@@ -87,6 +92,7 @@ export class Login extends React.Component {
     }).then(response => {
       AsyncStorage.setItem('access_token', response.user.access_token);
 
+      this.setState({ isLoading: false });
       this.props.navigation.navigate('Home');
     });
   }

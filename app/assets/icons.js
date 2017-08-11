@@ -48,5 +48,6 @@ export const FontAwesome = {
   right: String.fromCharCode(0xf061),
   left: String.fromCharCode(0xf060),
   alert: String.fromCharCode(0xf0a2),
-  signOut: String.fromCharCode(0xf08b)
+  signOut: String.fromCharCode(0xf08b),
+  info: String.fromCharCode(0xf05a)
 };

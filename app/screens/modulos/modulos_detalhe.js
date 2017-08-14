@@ -26,7 +26,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import {FontAwesome} from '../../assets/icons';
-import {API_MODULOS} from '../../data/modulos';
+import {MODULOS_API} from '../../data/modulos';
+import {MODULOS_HELPER} from '../../helpers/modulos';
 import {CAMERA} from '../../data/camera';
 
 export class ModulosDetalhe extends React.Component {
@@ -47,7 +48,7 @@ export class ModulosDetalhe extends React.Component {
   componentWillMount() {
     let {params} = this.props.navigation.state;
 
-    API_MODULOS.getModulo(params.moduloId).then(modulo => {
+    MODULOS_API.getModulo(params.moduloId).then(modulo => {
       this.setState({ isLoading: false, modulo: modulo })
     });
   }
@@ -64,7 +65,7 @@ export class ModulosDetalhe extends React.Component {
 
           <View style={styles.header}>
             <View style={styles.hint}>
-            <RkText rkType='h5 bold'>{this.renderTitle(this.state.modulo.tipo_plano)}</RkText>
+            <RkText rkType='h5 bold'>{MODULOS_HELPER.title(this.state.modulo.tipo_plano)}</RkText>
             </View>
 
             <View style={styles.subHeader}>
@@ -114,17 +115,6 @@ export class ModulosDetalhe extends React.Component {
     }
   }
 
-  renderTitle(tipo) {
-    switch (tipo) {
-      case 4:
-        return "Módulo com 4 redações"
-      case 8:
-        return "Módulo com 8 redações"
-      case 12:
-        return "Módulo com 12 redações"
-    }
-  }
-
   renderActionButton() {
     if (!this.state.modulo.redacao_enviada_para_tema) {
       return (
@@ -152,7 +142,7 @@ export class ModulosDetalhe extends React.Component {
         this.setState({ enviandoRedacao: true });
 
         CAMERA.upload(response.uri, this.state.modulo.id).then(response => {
-          API_MODULOS.getModulo(this.state.modulo.id).then(modulo => {
+          MODULOS_API.getModulo(this.state.modulo.id).then(modulo => {
             // Alert.alert(
             //   'Atenção',
             //   'Redação enviada com sucesso.',
@@ -160,7 +150,7 @@ export class ModulosDetalhe extends React.Component {
             //   { cancelable: false }
             // );
 
-            this.setState({ enviandoRedacao: false, modulo: modulo })
+            this.setState({ enviandoRedacao: false, modulo: modulo });
           });
         });
       }

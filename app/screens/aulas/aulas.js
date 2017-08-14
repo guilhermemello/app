@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Image,
   ScrollView,
   ActivityIndicator
 } from 'react-native';

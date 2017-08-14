@@ -189,6 +189,7 @@ export const KittenTheme = {
       s6: scale(13),
       s7: scale(10),
       s8: scale(11),
+      s9: scale(9),
       base: FontBaseValue,
       small: FontBaseValue * .8,
       medium: FontBaseValue,

@@ -15,7 +15,8 @@ import {
 } from 'react-native-ui-kitten';
 
 import {FontAwesome} from '../../assets/icons';
-import {API_MODULOS} from '../../data/modulos';
+import {MODULOS_API} from '../../data/modulos';
+import {MODULOS_HELPER} from '../../helpers/modulos';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 import _ from 'lodash';
@@ -34,45 +35,19 @@ export class Modulos extends React.Component {
     }
   }
 
-  componentWillMount() {
-    AsyncStorage.getItem('access_token').then(token => {
-      if (_.isNil(token)) {
-        this.props.navigation.navigate('Login');
-      }
-    });
-  }
+  // componentWillMount() {
+  //   AsyncStorage.getItem('current_user').then(current_user => {
+  //     if (_.isNil(current_user)) {
+  //       this.props.navigation.navigate('Login');
+  //       this.setState({ isLoading: false })
+  //     }
+  //   });
+  // }
 
   componentDidMount() {
-    API_MODULOS.getModulos().then(modulos => {
+    MODULOS_API.getModulos().then(modulos => {
       this.setState({ modulos: modulos, isLoading: false })
     });
-  }
-
-  statusModulo(modulo) {
-    var label = null;
-
-    switch (modulo.status.id) {
-      case 1:
-        label = <RkText rkType='label-orange s8'>{modulo.status.nome}</RkText>
-        break;
-      case 2:
-        label = <RkText rkType='label-blue s8'>{modulo.status.nome}</RkText>
-        break;
-      case 3:
-        label = <RkText rkType='label-green s8'>{modulo.status.nome}</RkText>
-        break;
-      case 4:
-        label = <RkText rkType='label-red s8'>{modulo.status.nome}</RkText>
-        break;
-      case 5:
-        label = <RkText rkType='label-red s8'>{modulo.status.nome}</RkText>
-        break;
-      case 6:
-        label = <RkText rkType='label-red s8'>{modulo.status.nome}</RkText>
-        break;
-    }
-
-    return label;
   }
 
   renderModulos(modulo) {
@@ -87,7 +62,7 @@ export class Modulos extends React.Component {
             <Text>{modulo.categoria.nome}</Text>
 
             <View style={styles.label}>
-              {this.statusModulo(modulo)}
+              {MODULOS_HELPER.status(modulo)}
             </View>
           </View>
 

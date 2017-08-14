@@ -23,7 +23,7 @@ var actions = {
   },
 
   logout() {
-    AsyncStorage.removeItem('access_token');
+    AsyncStorage.removeItem('current_user');
   }
 };
 

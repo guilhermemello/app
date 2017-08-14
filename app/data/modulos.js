@@ -12,4 +12,4 @@ var actions = {
   }
 };
 
-export const API_MODULOS = actions;
+export const MODULOS_API = actions;

@@ -9,3 +9,4 @@ export * from './splash';
 export * from './browser';
 export * from './player';
 export * from './comentarios';
+export * from './sobre';

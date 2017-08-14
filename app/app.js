@@ -1,5 +1,8 @@
 import React from 'react';
 import {
+  AsyncStorage
+} from 'react-native';
+import {
   DrawerNavigator,
   StackNavigator
 } from 'react-navigation';
@@ -10,6 +13,7 @@ import * as Screens from './screens';
 import {bootstrap} from './config/bootstrap';
 // import track from './config/analytics';
 // import {data} from './data'
+import _ from 'lodash';
 
 import Reactotron from 'reactotron-react-native'
 
@@ -33,10 +37,7 @@ function getCurrentRouteName(navigationState) {
 
 let SideMenu = withRkTheme(Screens.SideMenu);
 
-const RedacaoPerfeita = StackNavigator({
-  // First: {
-  //   screen: Screens.SplashScreen
-  // },
+const NavDeslogado = StackNavigator({
   Login: {
     screen: Screens.Login
   },
@@ -52,11 +53,63 @@ const RedacaoPerfeita = StackNavigator({
   headerMode: 'none'
 });
 
-export default () => (
-  <RedacaoPerfeita
-    onNavigationStateChange={(prevState, currentState) => {
-      const currentScreen = getCurrentRouteName(currentState);
-      const prevScreen = getCurrentRouteName(prevState);
-    }}
-  />
-);
+const NavLogado = StackNavigator({
+  Home: {
+    screen: DrawerNavigator({
+        ...AppRoutes,
+      },
+      {
+        contentComponent: (props) => <SideMenu {...props}/>
+      })
+  },
+  Login: {
+    screen: Screens.Login
+  },
+}, {
+  headerMode: 'none'
+});
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tipo: "",
+      loading: true
+    }
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('current_user').then(current_user => {
+      if (_.isNil(current_user)) {
+        this.setState({ tipo: 'deslogado' });
+      } else {
+        this.setState({ tipo: 'logado' });
+      }
+
+      this.setState({ loading: false })
+    });
+  }
+
+  render() {
+    if (this.state.loading == false) {
+      if (this.state.tipo == "logado") {
+        return (<NavLogado
+          onNavigationStateChange={(prevState, currentState) => {
+            const currentScreen = getCurrentRouteName(currentState);
+            const prevScreen = getCurrentRouteName(prevState);
+          }}
+        />)
+      } else {
+        return (<NavDeslogado
+          onNavigationStateChange={(prevState, currentState) => {
+            const currentScreen = getCurrentRouteName(currentState);
+            const prevScreen = getCurrentRouteName(prevState);
+          }}
+        />)
+      }
+    } else {
+      return null
+    }
+  }
+}

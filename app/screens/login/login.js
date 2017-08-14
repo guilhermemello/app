@@ -28,13 +28,13 @@ export class Login extends React.Component {
     header: null
   };
 
-  componentWillMount() {
-    AsyncStorage.getItem('access_token').then(token => {
-      if (!_.isNil(token)) {
-        this.props.navigation.navigate('Home');
-      }
-    });
-  }
+  // componentWillMount() {
+  //   AsyncStorage.getItem('access_token').then(token => {
+  //     if (!_.isNil(token)) {
+  //       this.props.navigation.navigate('Home');
+  //     }
+  //   });
+  // }
 
   constructor(props) {
     super(props);
@@ -90,7 +90,9 @@ export class Login extends React.Component {
         return response.json();
       }
     }).then(response => {
-      AsyncStorage.setItem('access_token', response.user.access_token);
+      // AsyncStorage.setItem('access_token', response.user.access_token);
+      // alert(response.user)
+      AsyncStorage.setItem('current_user', JSON.stringify(response.user));
 
       this.setState({ isLoading: false });
       this.props.navigation.navigate('Home');

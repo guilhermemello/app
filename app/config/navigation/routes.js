@@ -75,6 +75,13 @@ export const MainRoutes = [
     icon: FontAwesome.video,
     screen: Screens.Comentarios,
     children: []
+  },
+  {
+    id: 'Sobre',
+    title: 'Sobre',
+    icon: FontAwesome.video,
+    screen: Screens.Sobre,
+    children: []
   }
 ];
 
@@ -98,7 +105,8 @@ export const OtherRoutes = [
     id: 'Sobre',
     title: 'Sobre',
     icon: FontAwesome.info,
-    screen: Screens.Modulos
+    screen: Screens.Sobre,
+    children: []
   }
 ]
 

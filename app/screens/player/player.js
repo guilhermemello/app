@@ -17,7 +17,6 @@ export class Player extends React.Component {
 
   back() {
     const {goBack} = this.props.navigation
-    // Orientation.lockToPortrait()
     goBack()
   }
 

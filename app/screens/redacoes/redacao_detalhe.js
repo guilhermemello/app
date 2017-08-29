@@ -115,14 +115,14 @@ export class RedacaoDetalhe extends React.Component {
     if (this.state.redacao.enviada && !this.state.redacao.corrigida) {
       return (
         <View>
-          <CommonList text='Redação' icon={FontAwesome.paper} onPress={() => this.props.navigation.navigate('Browser', { url: this.state.redacao.enviada_url })} />
+          <CommonList text='Redação' icon={FontAwesome.paper} onPress={() => this.props.navigation.navigate('Browser', { url: this.state.redacao.enviada_url, title: 'REDAÇÃO' })} />
         </View>
       )
     } else {
       return (
         <View>
-          <CommonList text='Redação' icon={FontAwesome.paper} onPress={() => this.props.navigation.navigate('Browser', { url: this.state.redacao.enviada_url })} />
-          <CommonList text='Correção' icon={FontAwesome.paperText} onPress={() => this.props.navigation.navigate('Browser', { url: this.state.redacao.corrigida_url })} />
+          <CommonList text='Redação' icon={FontAwesome.paper} onPress={() => this.props.navigation.navigate('Browser', { url: this.state.redacao.enviada_url, title: 'REDAÇÃO' })} />
+          <CommonList text='Correção' icon={FontAwesome.paperText} onPress={() => this.props.navigation.navigate('Browser', { url: this.state.redacao.corrigida_url, title: 'CORREÇÃO' })} />
           <CommonList text='Comentários' icon={FontAwesome.chat} onPress={() => this.props.navigation.navigate('Comentarios', { redacaoId: this.state.redacao.id })} />
         </View>
       )

@@ -11,8 +11,7 @@ import {withRkTheme} from 'react-native-ui-kitten';
 import {AppRoutes} from './config/navigation/routesBuilder';
 import * as Screens from './screens';
 import {bootstrap} from './config/bootstrap';
-// import track from './config/analytics';
-// import {data} from './data'
+
 import _ from 'lodash';
 
 import Reactotron from 'reactotron-react-native'

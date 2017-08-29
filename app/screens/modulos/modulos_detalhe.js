@@ -74,39 +74,14 @@ export class ModulosDetalhe extends React.Component {
             </View>
           </View>
 
-          <View style={styles.cardContainer}>
-            <Grid>
-              <Row>
-                <Col>
-                  <Text style={styles.cardDescription}>
-                    TEMA DA SEMANA
-                  </Text>
-                </Col>
-                <Col style={styles.sendLimitContainer}>
-                  <RkText type="bold" style={styles.sendLimit}>
-                    Envio até {this.state.modulo.tema.expira_em}
-                  </RkText>
-                </Col>
-              </Row>
-            </Grid>
-
-            <TouchableOpacity style={styles.temaContainer} onPress={() => this.props.navigation.navigate('Tema', { tema: this.state.modulo.tema })}>
-              <View style={styles.temaTitulo}>
-                <RkText rkType='default p4' style={styles.temaTituloText}>{this.state.modulo.tema.titulo}</RkText>
-              </View>
-              <View style={styles.temaChev}>
-                <RkText rkType='awesome small' style={styles.chevColor}>{FontAwesome.chevronRight}</RkText>
-              </View>
-            </TouchableOpacity>
-          </View>
+          {this.renderTema()}
 
           <View style={styles.section}>
             <Text style={styles.sectionDescription}>
               MENU
             </Text>
 
-            <CommonList text='Redações' icon={FontAwesome.papers} onPress={() => this.props.navigation.navigate('Redacoes', { moduloId: this.state.modulo.id })} />
-            <CommonList text='Aulas' icon={FontAwesome.video} onPress={() => this.props.navigation.navigate('Aulas', { categoriaId: this.state.modulo.categoria.id })} />
+            {this.renderList()}
           </View>
 
           {this.renderActionButton()}
@@ -115,8 +90,65 @@ export class ModulosDetalhe extends React.Component {
     }
   }
 
-  renderActionButton() {
+  renderList() {
+    if (this.state.modulo.total_trabalhos_enviados == 0) {
+      return (
+        <View>
+          <CommonList text='Aulas' icon={FontAwesome.video} onPress={() => this.props.navigation.navigate('Aulas', { categoriaId: this.state.modulo.categoria.id })} />
+        </View>
+      )
+    } else {
+      return (
+        <View>
+          <CommonList text='Redações' icon={FontAwesome.papers} onPress={() => this.props.navigation.navigate('Redacoes', { moduloId: this.state.modulo.id })} />
+          <CommonList text='Aulas' icon={FontAwesome.video} onPress={() => this.props.navigation.navigate('Aulas', { categoriaId: this.state.modulo.categoria.id })} />
+        </View>
+      )  
+    }
+  }
+
+  renderTema() {
+    if (this.state.modulo.status.id <= 3) {
+      return (
+        <View style={styles.cardContainer}>
+          <Grid>
+            <Row>
+              <Col>
+                <Text style={styles.cardDescription}>
+                  TEMA DA SEMANA
+                </Text>
+              </Col>
+              <Col style={styles.sendLimitContainer}>
+                {this.renderAlertaEnvio()}
+              </Col>
+            </Row>
+          </Grid>
+
+          <TouchableOpacity style={styles.temaContainer} onPress={() => this.props.navigation.navigate('Tema', { tema: this.state.modulo.tema })}>
+            <View style={styles.temaTitulo}>
+              <RkText rkType='default p4' style={styles.temaTituloText}>{this.state.modulo.tema.titulo}</RkText>
+            </View>
+            <View style={styles.temaChev}>
+              <RkText rkType='awesome small' style={styles.chevColor}>{FontAwesome.chevronRight}</RkText>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+  }
+
+  renderAlertaEnvio() {
     if (!this.state.modulo.redacao_enviada_para_tema) {
+      return (
+        <RkText type="bold" style={styles.sendLimit}>
+          Envio até {this.state.modulo.tema.expira_em}
+        </RkText>
+      )
+    }
+  }
+
+  renderActionButton() {
+    if (!this.state.modulo.redacao_enviada_para_tema && this.state.modulo.status.id <= 3) {
       return (
         <View>
           <ActionButton
